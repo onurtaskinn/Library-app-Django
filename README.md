@@ -13,7 +13,7 @@ python3 populate_catalog.py
 python3 manage.py test catalog.test.test_first_week --verbosity 2 \
 python3 manage.py createsuperuser \
 
-
+asdasdasd
 # GIT CODES
 
 git clone https://github.com/sammi41/firstAssignment19956.git \
