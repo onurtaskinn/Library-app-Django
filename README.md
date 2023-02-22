@@ -13,7 +13,6 @@ python3 populate_catalog.py
 python3 manage.py test catalog.test.test_first_week --verbosity 2 \
 python3 manage.py createsuperuser \
 
-xxxxx
 
 # GIT CODES
 

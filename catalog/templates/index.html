@@ -18,8 +18,9 @@
     <li><strong>Copies:</strong> {{ num_instances }}</li>
     <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
     <li><strong>Authors:</strong> {{ num_authors }}</li>
-    <li><strong>Genres with {{search_word}}:</strong> {{ num_genres_withword }}</li>
-    <li><strong>Books with {{search_word}}:</strong> {{ num_books_withword }}</li>
+    <li><strong>Genres:</strong> {{ num_genres_withword }}</li>
+    <li><strong>Books containing the letter 'a' in the title: </strong> {{num_books_withword}} </li>
+
   </ul>
   
   <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>

@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission, User
 from datetime import date
 
 
@@ -67,6 +67,8 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        permissions = [("can_create_book", "Can create book")]
 
     def __str__(self):
         """String for representing the Model object."""
@@ -82,6 +84,8 @@ class Book(models.Model):
 
     display_genre.short_description = 'Genre'
     
+
+    
     
 import uuid # Required for unique book instances
 
@@ -92,7 +96,6 @@ class BookInstance(models.Model):
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    permissions = (("can_mark_returned", "Set book as returned"),)
 
 
 
@@ -113,6 +116,7 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ['due_back']
+        permissions = [('can_mark_returned', 'Set book as returned')]
 
     def __str__(self):
         """String for representing the Model object."""

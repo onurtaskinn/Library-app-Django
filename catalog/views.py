@@ -14,7 +14,7 @@ def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
     
-    search_word = "Sci"
+    search_word = "a"
     
     num_books_word = Book.objects.filter(title__icontains=search_word).count()
     num_genres_word = Genre.objects.filter(name__icontains=search_word).count()
@@ -48,25 +48,25 @@ from django.views import generic
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 10
+    paginate_by = 3
 
-    #def get_context_data(self, **kwargs):
-    #    # Call the base implementation first to get the context
-    #    context = super(BookListView, self).get_context_data(**kwargs)
-    #    # Create any data and add it to the context
-    #    context['some_data'] = 'This is just some data'
-    #    return context
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
 
 class BookDetailView(generic.DetailView):
     model = Book
     
-    #def book_detail_view(request, primary_key):
-    #    try:
-    #        book = Book.objects.get(pk=primary_key)
-    #    except Book.DoesNotExist:
-    #        raise Http404('Book does not exist')
-#
-    #    return render(request, 'catalog/book_detail.html', context={'book': book})
+    def book_detail_view(request, primary_key):
+        try:
+            book = Book.objects.get(pk=primary_key)
+        except Book.DoesNotExist:
+            raise Http404('Book does not exist')
+
+        return render(request, 'catalog/book_detail.html', context={'book': book})
     
 
 class AuthorListView(generic.ListView):
@@ -88,7 +88,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
-    paginate_by = 10
+    paginate_by = 3
 
     def get_queryset(self):
         return (
@@ -103,7 +103,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
 #    """Generic class-based view listing books on loan to current user."""
 #    model = BookInstance
 #    template_name = 'catalog/bookinstance_list_borrowed_to_librarian.html'
-#    paginate_by = 10
+#    paginate_by = 3
 #
 #    def get_queryset(self):
 #        return (
@@ -114,14 +114,28 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
         
 #@staff_member_required
 
-class AllLoanedBooksListView(generic.ListView):
+#class AllLoanedBooksListView(generic.ListView):
+#    model = BookInstance
+#    template_name = 'catalog/all_borrowed_books.html'
+#    context_object_name = 'bookinstance_list'
+#    paginate_by = 3#
+
+#    def get_queryset(self):
+#        return BookInstance.objects.filter(status__exact='o').order_by('due_back') 
+
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views import generic
+from catalog.models import BookInstance
+
+class BorrowedBooksListView(PermissionRequiredMixin, generic.ListView):
     model = BookInstance
-    template_name = 'catalog/all_borrowed_books.html'
-    context_object_name = 'bookinstance_list'
-    paginate_by = 10
+    template_name = 'catalog/borrowed_books_librarian.html'
+    paginate_by = 3
+    permission_required = 'catalog.can_mark_returned'
 
     def get_queryset(self):
-        return BookInstance.objects.filter(status__exact='o').order_by('due_back') 
+        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
+
     
     
 
@@ -192,20 +206,29 @@ from catalog.models import Book
 from catalog.forms import BookForm
 
 
+
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
+from django.views.generic import View
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(permission_required('catalog.can_mark_returned'), name='dispatch')
 class BookCreate(CreateView):
     model = Book
     form_class = BookForm
 
+@method_decorator(login_required, name='dispatch')
+@method_decorator(permission_required('catalog.can_mark_returned'), name='dispatch')
 class BookUpdate(UpdateView):
     model = Book
     form_class = BookForm
 
+@method_decorator(login_required, name='dispatch')
+@method_decorator(permission_required('catalog.can_mark_returned'), name='dispatch')
 class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books')
 
-           
-        
 
     
 
