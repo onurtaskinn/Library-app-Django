@@ -91,17 +91,30 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 
 
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+#
+#import dj_database_url
+#db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi',conn_max_age=500)
+#db_from_env = dj_database_url.config(default='',conn_max_age=500)
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'neondb',
+    'USER': 'onurtaskinn',
+    'PASSWORD': 'RwfKEbcG8oS9',
+    'HOST': 'ep-sweet-sky-780288.eu-central-1.aws.neon.tech',
+    'PORT': '5432',
+  }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi',conn_max_age=500)
 
-DATABASES['default'].update(db_from_env)
+#DATABASES['default'].update(db_from_env)
 
 
 #DATABASES =  {'default': 
