@@ -34,7 +34,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-9m%wn2lda*3^sq
 DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 
 
-ALLOWED_HOSTS = ['127.0.0.1'] # and render host
+ALLOWED_HOSTS = ['127.0.0.1','one9956-first-assignment-group16-1.onrender.com'] # and render host
 #ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
 #CSRF_TRUSTED_ORIGINS = ['https://web-production-3640.up.railway.app'] --> not for render ?
