@@ -30,8 +30,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-9m%wn2lda*3^sq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False' ### MUST BE  != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1'] # and render host
 
+#CSRF_TRUSTED_ORIGINS = ['https://web-production-3640.up.railway.app'] --> not for render ?
 
 # Application definition
 
