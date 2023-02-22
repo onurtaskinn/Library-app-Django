@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os # needed by code below
 
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,11 +27,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-9m%wn2lda*3^sqtms@afuv(91atb5!j14lq9kdax+p76gxyuyi')
+#SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False' ### MUST BE  != 'False'
+# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False' ### MUST BE  != 'False'
+DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
+
 
 ALLOWED_HOSTS = ['127.0.0.1'] # and render host
+#ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
 #CSRF_TRUSTED_ORIGINS = ['https://web-production-3640.up.railway.app'] --> not for render ?
 
