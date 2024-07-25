@@ -37,8 +37,6 @@ DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 ALLOWED_HOSTS = ['127.0.0.1','one9956-first-assignment-group16-1.onrender.com'] # and render host
 #ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
-#CSRF_TRUSTED_ORIGINS = ['https://web-production-3640.up.railway.app'] --> not for render ?
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -91,50 +89,12 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-#
-#import dj_database_url
-#db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi',conn_max_age=500)
-#db_from_env = dj_database_url.config(default='',conn_max_age=500)
-
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'neondb',
-    'USER': 'onurtaskinn',
-    'PASSWORD': 'RwfKEbcG8oS9',
-    'HOST': 'ep-sweet-sky-780288.eu-central-1.aws.neon.tech',
-    'PORT': '5432',
-  }
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3',
+   }
 }
-
-
-#DATABASES['default'].update(db_from_env)
-
-
-#DATABASES =  {'default': 
-#    {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'psi',
-#        'USER': 'alumnodb',
-#        'PASSWORD': 'alumnodb',
-#        'HOST': 'localhost',
-#        'PORT': '5432'
-#    }
-#    }
-#
-
-
-#import dj_database_url
-#db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi',conn_max_age=500)
-#DATABASES['default'].update(db_from_env)
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
